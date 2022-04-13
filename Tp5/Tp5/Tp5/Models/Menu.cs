@@ -7,8 +7,8 @@ namespace Tp5.Models
 {
     public class Menu
     {
-        int id { get; set; }
-        string nom { get; set; }
+        public int id { get; set; }
+        public string nom { get; set; }
 
         public Menu()
         {

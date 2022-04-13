@@ -1,0 +1,47 @@
+﻿@model ListMenuViewModel
+@{
+    ViewData["Title"] = "Liste des menus";
+}
+
+<div id="product-list-page">
+    <div class="page-title">
+        <h2>Liste des choix de menu</h2>
+    </div>
+
+    <table class="table table-sm table-bordered table-striped table-hover">
+        <tr>
+            <!--
+            <th>Code</th>
+            <th>Nom du produit</th>
+            <th>Catégorie</th>
+            <th>Quantité en stock</th>
+            -->
+            <!-- Permet d'utiliser l'attribut Display(Name="...") de propriété du modèle -->
+            <!-- Permet de gérer l'affichage du modèle à un seul endroit -->
+            <th>@Html.DisplayNameFor(model => model.menus[0].id)</th>
+            <th>@Html.DisplayNameFor(model => model.menus[0].nom)</th>
+            <th>Actions</th>
+        </tr>
+        @if (Model.menus.Length > 0)
+        {
+            foreach (Menu menu in Model.menus)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => menu.id)</td>
+                    <td>@Html.DisplayFor(model => menu.nom)</td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@menu.id">Éditer</a>
+                        <a asp-action="Delete" asp-route-id="@menu.id">Supprimer</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">Aucun menu trouvé.</td>
+            </tr>
+        }
+    </table>
+</div>

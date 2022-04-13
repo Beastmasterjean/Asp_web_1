@@ -7,12 +7,12 @@ namespace Tp5.Models
 {
     public class Reservation
     {
-        int id { get; set; }
-        int nbPersonne { get; set; }
-        int menuChoiceId { get; set; }
-        string nom { get; set; }
-        string courriel { get; set; }
-        DateTime date { get; set; }
+        public int id { get; set; }
+        public int nbPersonne { get; set; }
+        public int menuChoiceId { get; set; }
+        public string nom { get; set; }
+        public string courriel { get; set; }
+        public DateTime date { get; set; }
 
         public Reservation()
         {
