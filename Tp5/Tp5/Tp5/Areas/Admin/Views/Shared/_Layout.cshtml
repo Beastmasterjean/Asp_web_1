@@ -4,12 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Tp5</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
 
-    <link rel="stylesheet" href="~/css/site-bootstrap.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    @await RenderSectionAsync("Links", required: false) 
+    <link rel="stylesheet" href="~/Admin/assets/css/admin-bootstrap.css" />
+    <link rel="stylesheet" href="~/Admin/assets/css/admin.css" />
+    @await RenderSectionAsync("Links", required: false)
 </head>
 <body>
     <header>
@@ -26,7 +27,7 @@
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="Menu" asp-action="List">Les choix de menu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Administration</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Les réservations</a>
                         </li>
                     </ul>
                 </div>
@@ -44,9 +45,14 @@
             &copy; 2022 - Tp5
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Placé à la fin du document pour un chargement plus rapide des pages -->
+    <!-- Ordre : jQuery, Popper.js, puis Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="~/Admin/assets/js/admin.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

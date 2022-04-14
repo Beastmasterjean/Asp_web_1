@@ -12,7 +12,7 @@ namespace Tp5.DataAccessLayer.Factories
         private Menu CreateFromReader(MySqlDataReader mySqlDataReader)
         {
             int id = (int)mySqlDataReader["Id"];
-            string nom = mySqlDataReader["Nom"].ToString();
+            string nom = mySqlDataReader["Description"].ToString();
 
             return new Menu(id,nom);
         }
@@ -34,7 +34,7 @@ namespace Tp5.DataAccessLayer.Factories
                 mySqlCnn.Open();
 
                 MySqlCommand mySqlCmd = mySqlCnn.CreateCommand();
-                mySqlCmd.CommandText = "SELECT * FROM tp5_menuChoices ORDER BY Nom";
+                mySqlCmd.CommandText = "SELECT * FROM tp5_menuChoices ORDER BY Description";
 
                 mySqlDataReader = mySqlCmd.ExecuteReader();
                 while (mySqlDataReader.Read())

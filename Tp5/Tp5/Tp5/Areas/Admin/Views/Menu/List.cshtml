@@ -18,7 +18,6 @@
             -->
             <!-- Permet d'utiliser l'attribut Display(Name="...") de propriété du modèle -->
             <!-- Permet de gérer l'affichage du modèle à un seul endroit -->
-            <th>@Html.DisplayNameFor(model => model.menus[0].id)</th>
             <th>@Html.DisplayNameFor(model => model.menus[0].nom)</th>
             <th>Actions</th>
         </tr>
@@ -27,7 +26,6 @@
             foreach (Menu menu in Model.menus)
             {
                 <tr>
-                    <td>@Html.DisplayFor(model => menu.id)</td>
                     <td>@Html.DisplayFor(model => menu.nom)</td>
 
                     <td>
@@ -44,4 +42,5 @@
             </tr>
         }
     </table>
+    <button class="btn-primary">Ajouter un choix de menu</button>
 </div>
