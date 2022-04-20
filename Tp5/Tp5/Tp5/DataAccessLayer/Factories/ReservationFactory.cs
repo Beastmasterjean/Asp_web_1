@@ -84,5 +84,74 @@ namespace Tp5.DataAccessLayer.Factories
 
             return reservation;
         }
+
+        public void Save(Reservation reservation)
+        {
+            MySqlConnection mySqlCnn = null;
+
+            try
+            {
+                mySqlCnn = new MySqlConnection(DAL.ConnectionString);
+                mySqlCnn.Open();
+
+                MySqlCommand mySqlCmd = mySqlCnn.CreateCommand();
+                if (reservation.id == 0)
+                {
+                    // On sait que c'est un nouveau produit avec Id == 0,
+                    // car c'est ce que nous avons affecter dans la fonction CreateEmpty().
+                    mySqlCmd.CommandText = "INSERT INTO tp5_reservations(Id, Nom, Courriel, NbPersonne, DateReservation, MenuChoiceId) " +
+                                           "VALUES (@Id, @Nom, @Courriel, @NbPersonne, @DateReservation, @MenuChoiceId)";
+                }
+                else
+                {
+                    mySqlCmd.CommandText = "UPDATE tp5_reservations " +
+                                           "SET Id=@Id, Nom=@Nom, Courriel=@Courriel, NbPersonne=@NbPersonne, DateReservation=@DateReservation, MenuChoiceId=@MenuChoiceId," +
+                                           "WHERE Id=@Id";
+
+                    mySqlCmd.Parameters.AddWithValue("@Id", reservation.id);
+                }
+
+                mySqlCmd.Parameters.AddWithValue("@Id", reservation.id);
+                mySqlCmd.Parameters.AddWithValue("@Nom", reservation.nom.Trim());
+                mySqlCmd.Parameters.AddWithValue("@Courriel", reservation.courriel.Trim());
+                mySqlCmd.Parameters.AddWithValue("@NbPersonne", reservation.nbPersonne);
+                mySqlCmd.Parameters.AddWithValue("@DateReservation", reservation.date);
+                mySqlCmd.Parameters.AddWithValue("@MenuChoiceId", reservation.menuChoiceId);
+
+                mySqlCmd.ExecuteNonQuery();
+
+                if (reservation.id == 0)
+                {
+                    // Si c'était un nouveau produit (requête INSERT),
+                    // nous affectons le nouvel Id de l'instance au cas où il serait utilisé dans le code appelant.
+                    reservation.id = (int)mySqlCmd.LastInsertedId;
+                }
+            }
+            finally
+            {
+                mySqlCnn?.Close();
+            }
+        }
+
+        public void Delete(int id)
+        {
+            MySqlConnection mySqlCnn = null;
+
+            try
+            {
+                mySqlCnn = new MySqlConnection(DAL.ConnectionString);
+                mySqlCnn.Open();
+
+                MySqlCommand mySqlCmd = mySqlCnn.CreateCommand();
+                mySqlCmd.CommandText = "DELETE FROM tp5_reservations WHERE Id=@Id";
+                mySqlCmd.Parameters.AddWithValue("@Id", id);
+                mySqlCmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                mySqlCnn?.Close();
+            }
+        }
     }
 }
+

@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Tp5.DataAccessLayer;
 using Tp5.Models;
+using Tp5.ViewModel;
 
 namespace Tp5.Controllers
 {
@@ -14,6 +16,51 @@ namespace Tp5.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Create()
+        {
+            DAL dal = new DAL();
+
+            ListViewModel viewModel = new ListViewModel()
+            {
+                Reservation = dal.reservationFactory.CreateEmpty(),
+            };
+
+            return View("CreateEdit", viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(ListViewModel viewModel)
+        {
+            if (viewModel != null && viewModel.Reservation != null)
+            {
+                DAL dal = new DAL();
+
+                Menu existingReservation = dal.MenuFactory.Get(viewModel.Reservation.id);
+                if (existingReservation != null)
+                {
+                    // Il est possible d'ajouter une erreur personnalisée.
+                    // Le premier paramètre est la propriété touchée (à partir du viewModel ici)
+                    ModelState.AddModelError("Menu.Id", "Le id de menu existe déjà.");
+                    viewModel.Reservations = dal.reservationFactory.GetAll();
+                    return View("CreateEdit", viewModel);
+                }
+
+                // Si le modèle n'est pas valide, on retourne à la vue CreateEdit où les messages seront affichés.
+                // Le ViewModèle reçu en POST n'est pas complet (seulement les info dans le <form> sont conservées),
+                // il faut donc réaffecter les Catégories.
+                if (!ModelState.IsValid)
+                {
+                    viewModel.Reservations = dal.reservationFactory.GetAll();
+                    return View("CreateEdit", viewModel);
+                }
+
+                dal.reservationFactory.Save(viewModel.Reservation);
+            }
+
+            return RedirectToAction("List");
         }
     }
 }
