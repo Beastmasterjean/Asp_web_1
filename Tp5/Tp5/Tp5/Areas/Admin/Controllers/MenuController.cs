@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tp5.Areas.Admin.ViewModels;
 using Tp5.DataAccessLayer;
+using Tp5.Models;
 
 namespace Tp5.Areas.Admin.Controllers
 {
@@ -16,11 +18,149 @@ namespace Tp5.Areas.Admin.Controllers
             DAL dal = new DAL();
             ListMenuViewModel viewModel = new ListMenuViewModel
             {
-                menus = dal.MenuFactory.GetAll()
+                Menus = dal.MenuFactory.GetAll()
             };
 
             return View(viewModel);
 
+        }
+
+        public IActionResult Create()
+        {
+            DAL dal = new DAL();
+
+            CreateEditMenuViewModel viewModel = new CreateEditMenuViewModel
+            {
+                Menu = dal.MenuFactory.CreateEmpty(),
+            };
+
+            return View("CreateEdit", viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(CreateEditMenuViewModel viewModel)
+        {
+            if (viewModel != null && viewModel.Menu != null)
+            {
+                DAL dal = new DAL();
+
+                Menu existingMenu = dal.MenuFactory.Get(viewModel.Menu.id);
+                if (existingMenu != null)
+                {
+                    // Il est possible d'ajouter une erreur personnalisée.
+                    // Le premier paramètre est la propriété touchée (à partir du viewModel ici)
+                    ModelState.AddModelError("Menu.Id", "Le id de menu existe déjà.");
+                    viewModel.Menus = dal.MenuFactory.GetAll();
+                    return View("CreateEdit", viewModel);
+                }
+
+                // Si le modèle n'est pas valide, on retourne à la vue CreateEdit où les messages seront affichés.
+                // Le ViewModèle reçu en POST n'est pas complet (seulement les info dans le <form> sont conservées),
+                // il faut donc réaffecter les Catégories.
+                if (!ModelState.IsValid)
+                {
+                    viewModel.Menus = dal.MenuFactory.GetAll();
+                    return View("CreateEdit", viewModel);
+                }
+
+                dal.MenuFactory.Save(viewModel.Menu);
+            }
+
+            return RedirectToAction("List");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            if(id > 0)
+            {
+                DAL dal = new DAL();
+                Menu menu = dal.MenuFactory.Get(id);
+
+                if(menu != null)
+                {
+                    ListMenuViewModel viewModel = new ListMenuViewModel
+                    {
+                        Menu = menu,
+                    };
+                    return View(viewModel);
+                }                       
+            }
+            return View("SiteMessage", new SiteMessageViewModel
+            {
+                Message = "L'identifiant du menu est introuvable (Admin/Menu/" + id + ")."
+            });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, CreateEditMenuViewModel viewModel)
+        {
+            if (viewModel != null && viewModel.Menu != null)
+            {
+                DAL dal = new DAL();
+
+                Menu existingmenu = dal.MenuFactory.Get(viewModel.Menu.id);
+                if (existingmenu != null && existingmenu.id != viewModel.Menu.id)
+                {
+                    // Il est possible d'ajouter une erreur personnalisée.
+                    // Le premier paramètre est la propriété touchée (à partir du viewModel ici)
+                    ModelState.AddModelError("menu.Id", "Le id de menu existe déjà.");
+                    viewModel.Menus = dal.MenuFactory.GetAll();
+                    return View("CreateEdit", viewModel);
+                }
+
+                // Si le modèle n'est pas valide, on retourne à la vue CreateEdit où les messages seront affichés.
+                // Le ViewModèle reçu en POST n'est pas complet (seulement les info dans le <form> sont conservées),
+                // il faut donc réaffecter les Catégories.
+                if (!ModelState.IsValid)
+                {
+                    viewModel.Menus = dal.MenuFactory.GetAll();
+                    return View("CreateEdit", viewModel);
+                }
+
+                dal.MenuFactory.Save(viewModel.Menu);
+            }
+
+            return RedirectToAction("List");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            if(id > 0)
+            {
+                DAL dal = new DAL();
+                Menu menu = dal.MenuFactory.Get(id);
+
+                if(menu != null)
+                {
+                    ListMenuViewModel viewModel = new ListMenuViewModel
+                    {
+                        Menu = menu,
+                        Menus = dal.MenuFactory.GetAll(),
+                    };
+                    return View(viewModel);
+                }
+                               
+            }
+
+            return View("SiteMessage", new SiteMessageViewModel
+            {
+                Message = "L'identifiant du menu est introuvable (Admin/Menu/" + id + ")."
+            });
+        }
+
+        // POST: Admin/Product/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id, IFormCollection collection)
+        {
+            if (id > 0)
+            {
+                new DAL().MenuFactory.Delete(id);
+            }
+
+            return RedirectToAction("List");
         }
     }
 }

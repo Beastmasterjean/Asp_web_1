@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tp5.DataAccessLayer;
 
 namespace Tp5
 {
@@ -16,6 +17,7 @@ namespace Tp5
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            DAL.ConnectionString = Configuration.GetConnectionString("Default");
         }
 
         public IConfiguration Configuration { get; }

@@ -12,7 +12,7 @@ namespace Tp5.DataAccessLayer.Factories
         private Menu CreateFromReader(MySqlDataReader mySqlDataReader)
         {
             int id = (int)mySqlDataReader["Id"];
-            string nom = mySqlDataReader["Nom"].ToString();
+            string nom = mySqlDataReader["Description"].ToString();
 
             return new Menu(id,nom);
         }
@@ -34,7 +34,7 @@ namespace Tp5.DataAccessLayer.Factories
                 mySqlCnn.Open();
 
                 MySqlCommand mySqlCmd = mySqlCnn.CreateCommand();
-                mySqlCmd.CommandText = "SELECT * FROM tp5_menuChoices ORDER BY Nom";
+                mySqlCmd.CommandText = "SELECT * FROM tp5_menuChoices ORDER BY Description";
 
                 mySqlDataReader = mySqlCmd.ExecuteReader();
                 while (mySqlDataReader.Read())
@@ -79,6 +79,70 @@ namespace Tp5.DataAccessLayer.Factories
             }
 
             return menu;
+        }
+
+        public void Save(Menu menu)
+        {
+            MySqlConnection mySqlCnn = null;
+
+            try
+            {
+                mySqlCnn = new MySqlConnection(DAL.ConnectionString);
+                mySqlCnn.Open();
+
+                MySqlCommand mySqlCmd = mySqlCnn.CreateCommand();
+                if (menu.id == 0)
+                {
+                    // On sait que c'est un nouveau produit avec Id == 0,
+                    // car c'est ce que nous avons affecter dans la fonction CreateEmpty().
+                    mySqlCmd.CommandText = "INSERT INTO tp5_menuchoices(Id, Description) " +
+                                           "VALUES (@Id, @Description)";
+                }
+                else
+                {
+                    mySqlCmd.CommandText = "UPDATE tp5_menuchoices " +
+                                           "SET Id=@Id, Description=@Description" +
+                                           "WHERE Id=@Id";
+
+                    mySqlCmd.Parameters.AddWithValue("@Id", menu.id);
+                }
+
+                mySqlCmd.Parameters.AddWithValue("@Id", menu.id);
+                mySqlCmd.Parameters.AddWithValue("@Description", menu.nom.Trim());
+
+                mySqlCmd.ExecuteNonQuery();
+
+                if (menu.id == 0)
+                {
+                    // Si c'était un nouveau produit (requête INSERT),
+                    // nous affectons le nouvel Id de l'instance au cas où il serait utilisé dans le code appelant.
+                    menu.id = (int)mySqlCmd.LastInsertedId;
+                }
+            }
+            finally
+            {
+                mySqlCnn?.Close();
+            }
+        }
+
+        public void Delete(int id)
+        {
+            MySqlConnection mySqlCnn = null;
+
+            try
+            {
+                mySqlCnn = new MySqlConnection(DAL.ConnectionString);
+                mySqlCnn.Open();
+
+                MySqlCommand mySqlCmd = mySqlCnn.CreateCommand();
+                mySqlCmd.CommandText = "DELETE FROM tp5_menuchoices WHERE Id=@Id";
+                mySqlCmd.Parameters.AddWithValue("@Id", id);
+                mySqlCmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                mySqlCnn?.Close();
+            }
         }
     }
 }

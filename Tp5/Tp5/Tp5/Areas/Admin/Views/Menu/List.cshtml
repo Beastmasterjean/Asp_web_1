@@ -18,13 +18,13 @@
             -->
             <!-- Permet d'utiliser l'attribut Display(Name="...") de propriété du modèle -->
             <!-- Permet de gérer l'affichage du modèle à un seul endroit -->
-            <th>@Html.DisplayNameFor(model => model.menus[0].id)</th>
-            <th>@Html.DisplayNameFor(model => model.menus[0].nom)</th>
+            <th>@Html.DisplayNameFor(model => model.Menus[0].id)</th>
+            <th>@Html.DisplayNameFor(model => model.Menus[0].nom)</th>
             <th>Actions</th>
         </tr>
-        @if (Model.menus.Length > 0)
+        @if (Model.Menus.Length > 0)
         {
-            foreach (Menu menu in Model.menus)
+            foreach (Menu menu in Model.Menus)
             {
                 <tr>
                     <td>@Html.DisplayFor(model => menu.id)</td>

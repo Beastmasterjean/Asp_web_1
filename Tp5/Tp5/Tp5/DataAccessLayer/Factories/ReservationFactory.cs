@@ -16,7 +16,7 @@ namespace Tp5.DataAccessLayer.Factories
             int menuChoiceId = (int)mySqlDataReader["MenuChoiceId"];
             string nom = mySqlDataReader["Nom"].ToString();
             string courriel = mySqlDataReader["Courriel"].ToString();
-            DateTime date = (DateTime)mySqlDataReader["MenuChoiceId"];
+            DateTime date = (DateTime)mySqlDataReader["DateReservation"];
 
             return new Reservation(id,nbPersonne,menuChoiceId,nom,courriel,date);
         }
@@ -38,7 +38,7 @@ namespace Tp5.DataAccessLayer.Factories
                 mySqlCnn.Open();
 
                 MySqlCommand mySqlCmd = mySqlCnn.CreateCommand();
-                mySqlCmd.CommandText = "SELECT * FROM tp5_reservation ORDER BY DateReservation Desc";
+                mySqlCmd.CommandText = "SELECT * FROM tp5_reservations ORDER BY DateReservation Desc";
 
                 mySqlDataReader = mySqlCmd.ExecuteReader();
                 while (mySqlDataReader.Read())
@@ -67,7 +67,7 @@ namespace Tp5.DataAccessLayer.Factories
                 mySqlCnn.Open();
 
                 MySqlCommand mySqlCmd = mySqlCnn.CreateCommand();
-                mySqlCmd.CommandText = "SELECT * FROM tp5_reservation WHERE Id = @Id";
+                mySqlCmd.CommandText = "SELECT * FROM tp5_reservations WHERE Id = @Id";
                 mySqlCmd.Parameters.AddWithValue("@Id", id);
 
                 mySqlDataReader = mySqlCmd.ExecuteReader();
