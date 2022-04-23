@@ -1,22 +1,29 @@
-﻿<!DOCTYPE html>
+﻿<!DO<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Tp5</title>
+
+    <title>@ViewData["Title"] - travail 5</title>
+
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
 
     <link rel="stylesheet" href="~/Admin/assets/css/admin-bootstrap.css" />
     <link rel="stylesheet" href="~/Admin/assets/css/admin.css" />
+
+    <!--
+        Section qui permet d'ajouter du contenu dans <head> à partir d'une vue
+        Voir la vue Contact/Index.cshtml pour un exemple.
+    -->
     @await RenderSectionAsync("Links", required: false)
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Tp5</a>
+                <a class="navbar-brand" asp-area="Admin" asp-controller="Home" asp-action="Index">ADMINISTATION</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -24,10 +31,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Menu" asp-action="List">Les choix de menu</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Menu" asp-action="List"><i class="far fa-list-alt"></i> LES CHOIX DE MENU</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Les réservations</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index"><i class="far fa-list-alt"></i>LES RÉSERVATIONS</a>
                         </li>
                     </ul>
                 </div>
@@ -42,9 +49,10 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Tp5
+            ASP.NET MVC - JeanLandreville
         </div>
     </footer>
+
     <!-- Placé à la fin du document pour un chargement plus rapide des pages -->
     <!-- Ordre : jQuery, Popper.js, puis Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -52,7 +60,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
-    <script src="~/Admin/assets/js/admin.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!--
+        Section qui permet d'ajouter du JavaScript à partir d'une vue
+        Voir la vue Contact/Index.cshtml pour un exemple.
+    -->
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

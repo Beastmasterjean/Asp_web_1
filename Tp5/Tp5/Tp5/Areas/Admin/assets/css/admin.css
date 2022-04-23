@@ -38,6 +38,13 @@ button.accept-policy {
 main {
     padding: 30px 0;
 }
+button {
+    left:50%;
+}
+header{
+    background-color:black;
+    color:white;
+}
 
 footer {
     padding: 20px 0;

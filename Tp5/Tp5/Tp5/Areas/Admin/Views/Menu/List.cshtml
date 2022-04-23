@@ -31,7 +31,7 @@
                     <td>@Html.DisplayFor(model => menu.nom)</td>
 
                     <td>
-                        <a asp-action="Edit" asp-route-id="@menu.id">Éditer</a>
+                        <a asp-action="Edit" asp-route-id="@menu.id"><i class="fa-solid fa-pen-to-square"></i></a>
                         <a asp-action="Delete" asp-route-id="@menu.id">Supprimer</a>
                     </td>
                 </tr>
@@ -44,5 +44,9 @@
             </tr>
         }
     </table>
-    <button class="btn-primary">Ajouter un choix de menu</button>
+    <a asp-action="Create">Create</a>
+                <button class="navbar-toggler btn-primary" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 </div>
