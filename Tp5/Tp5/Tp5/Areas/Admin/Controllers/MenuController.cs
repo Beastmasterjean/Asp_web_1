@@ -79,11 +79,11 @@ namespace Tp5.Areas.Admin.Controllers
 
                 if(menu != null)
                 {
-                    ListMenuViewModel viewModel = new ListMenuViewModel
+                    CreateEditMenuViewModel viewModel = new CreateEditMenuViewModel
                     {
                         Menu = menu,
                     };
-                    return View(viewModel);
+                    return View("CreateEdit",viewModel);
                 }                       
             }
             return View("SiteMessage", new SiteMessageViewModel

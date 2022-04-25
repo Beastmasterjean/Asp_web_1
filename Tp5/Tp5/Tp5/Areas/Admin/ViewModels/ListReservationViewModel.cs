@@ -12,5 +12,8 @@ namespace Tp5.Areas.Admin.ViewModels
 
         public Reservation Reservation { get; set; }
         public Reservation[] Reservations { get; set; }
+
+        public Menu Menu { get; set; }
+        public Menu[] Menus { get; set; }
     }
 }

@@ -99,8 +99,8 @@ namespace Tp5.DataAccessLayer.Factories
                 {
                     // On sait que c'est un nouveau produit avec Id == 0,
                     // car c'est ce que nous avons affecter dans la fonction CreateEmpty().
-                    mySqlCmd.CommandText = "INSERT INTO tp5_reservations(Id, Nom, Courriel, NbPersonne, DateReservation, MenuChoiceId) " +
-                                           "VALUES (@Id, @Nom, @Courriel, @NbPersonne, @DateReservation, @MenuChoiceId)";
+                    mySqlCmd.CommandText = "INSERT INTO tp5_reservations(Nom, Courriel, NbPersonne, DateReservation, MenuChoiceId) " +
+                                           "VALUES (@Nom, @Courriel, @NbPersonne, @DateReservation, @MenuChoiceId)";
                 }
                 else
                 {

@@ -27,7 +27,7 @@ namespace Tp5.Controllers
                 Reservation = dal.reservationFactory.CreateEmpty(),
             };
 
-            return View("CreateEdit", viewModel);
+            return View("Index", viewModel);
         }
 
         [HttpPost]
@@ -38,14 +38,14 @@ namespace Tp5.Controllers
             {
                 DAL dal = new DAL();
 
-                Menu existingReservation = dal.MenuFactory.Get(viewModel.Reservation.id);
+                Reservation existingReservation = dal.reservationFactory.Get(viewModel.Reservation.id);
                 if (existingReservation != null)
                 {
                     // Il est possible d'ajouter une erreur personnalisée.
                     // Le premier paramètre est la propriété touchée (à partir du viewModel ici)
                     ModelState.AddModelError("Menu.Id", "Le id de menu existe déjà.");
                     viewModel.Reservations = dal.reservationFactory.GetAll();
-                    return View("CreateEdit", viewModel);
+                    return View("Index", viewModel);
                 }
 
                 // Si le modèle n'est pas valide, on retourne à la vue CreateEdit où les messages seront affichés.
@@ -54,13 +54,13 @@ namespace Tp5.Controllers
                 if (!ModelState.IsValid)
                 {
                     viewModel.Reservations = dal.reservationFactory.GetAll();
-                    return View("CreateEdit", viewModel);
+                    return View("Index", viewModel);
                 }
 
                 dal.reservationFactory.Save(viewModel.Reservation);
             }
 
-            return RedirectToAction("List");
+            return RedirectToAction("Index");
         }
     }
 }

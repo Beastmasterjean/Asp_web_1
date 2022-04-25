@@ -7,6 +7,7 @@ namespace Tp5.Models
 {
     public class Menu
     {
+        public List<Menu> listMenu = new List<Menu>();
         public int id { get; set; }
         public string nom { get; set; }
 

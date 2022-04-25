@@ -18,11 +18,10 @@
     -->
             <!-- Permet d'utiliser l'attribut Display(Name="...") de propriété du modèle -->
             <!-- Permet de gérer l'affichage du modèle à un seul endroit -->
-            <th>@Html.DisplayNameFor(model => model.Reservations[0].id)</th>
+            <th>@Html.DisplayNameFor(model => model.Reservations[0].date)</th>
             <th>@Html.DisplayNameFor(model => model.Reservations[0].nom)</th>
             <th>@Html.DisplayNameFor(model => model.Reservations[0].courriel)</th>
             <th>@Html.DisplayNameFor(model => model.Reservations[0].nbPersonne)</th>
-            <th>@Html.DisplayNameFor(model => model.Reservations[0].date)</th>
             <th>@Html.DisplayNameFor(model => model.Reservations[0].menuChoiceId)</th>
             <th>Actions</th>
         </tr>
@@ -32,11 +31,10 @@
 
             {
     <tr>
-        <td>@Html.DisplayFor(model => reservation.id)</td>
+        <td>@Html.DisplayFor(model => reservation.date)</td>
         <td>@Html.DisplayFor(model => reservation.nom)</td>
         <td>@Html.DisplayFor(model => reservation.courriel)</td>
         <td>@Html.DisplayFor(model => reservation.nbPersonne)</td>
-        <td>@Html.DisplayFor(model => reservation.date)</td>
         <td>@Html.DisplayFor(model => reservation.menuChoiceId)</td>
 
         <td>
