@@ -47,7 +47,7 @@
                         <div class="form-group row">
                             <label asp-for="Reservation.date" class="col-form-label col-md-3"></label>
                             <div class="col-md-9">
-                                <input asp-for="Reservation.date" type="text" id="datepicker" />
+                                <input asp-for="Reservation.date" class="form-control" type="text" data-provide="datepicker" />
                                 <span asp-validation-for="Reservation.date" class="text-danger"></span>
                             </div>
                         </div>
