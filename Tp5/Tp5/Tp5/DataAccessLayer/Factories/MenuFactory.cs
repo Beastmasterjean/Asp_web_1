@@ -108,10 +108,15 @@ namespace Tp5.DataAccessLayer.Factories
                     mySqlCmd.Parameters.AddWithValue("@Id", menu.id);
                     
                 }
+                if(menu.nom != null)
+                {
+                    mySqlCmd.Parameters.AddWithValue("@Description", menu.nom.Trim());
+                    mySqlCmd.ExecuteNonQuery();
+                }
+                
 
-                mySqlCmd.Parameters.AddWithValue("@Description", menu.nom.Trim());
 
-                mySqlCmd.ExecuteNonQuery();
+                
 
                 //if (menu.id == 0)
                 //{
