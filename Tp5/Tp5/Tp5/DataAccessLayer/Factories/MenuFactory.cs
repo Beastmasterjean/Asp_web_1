@@ -93,8 +93,6 @@ namespace Tp5.DataAccessLayer.Factories
                 MySqlCommand mySqlCmd = mySqlCnn.CreateCommand();
                 if (menu.id == 0)
                 {
-                    
-                    
                     // On sait que c'est un nouveau produit avec Id == 0,
                     // car c'est ce que nous avons affecter dans la fonction CreateEmpty().
                     mySqlCmd.CommandText = "INSERT INTO tp5_menuchoices(Description) " +
@@ -113,17 +111,7 @@ namespace Tp5.DataAccessLayer.Factories
                     mySqlCmd.Parameters.AddWithValue("@Description", menu.nom.Trim());
                     mySqlCmd.ExecuteNonQuery();
                 }
-                
-
-
-                
-
-                //if (menu.id == 0)
-                //{
-                //    // Si c'était un nouveau produit (requête INSERT),
-                //    // nous affectons le nouvel Id de l'instance au cas où il serait utilisé dans le code appelant.
-                //    menu.id = (int)mySqlCmd.Las;
-                //}
+               
             }
             finally
             {

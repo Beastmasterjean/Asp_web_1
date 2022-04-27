@@ -15,11 +15,6 @@ namespace Tp5.Controllers
     {
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Create()
-        {
             DAL dal = new DAL();
 
             ListViewModel viewModel = new ListViewModel()
@@ -60,7 +55,7 @@ namespace Tp5.Controllers
                 dal.reservationFactory.Save(viewModel.Reservation);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Reservation");
         }
     }
 }

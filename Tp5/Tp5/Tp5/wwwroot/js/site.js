@@ -7,7 +7,7 @@ $(document).ready(function () {
         min: 0
     });
     $(function () {
-        $("#datepicker").datepicker();
+        $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
     });
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();

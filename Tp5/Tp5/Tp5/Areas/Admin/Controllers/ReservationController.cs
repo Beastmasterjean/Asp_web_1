@@ -42,7 +42,7 @@ namespace Tp5.Areas.Admin.Controllers
                 }
             }
 
-            return View("AdminMessage", new AdminMessageViewModel
+            return View("SiteMessage", new SiteMessageViewModel
             {
                 Message = "L'identifiant de la reservation est introuvable."
             });

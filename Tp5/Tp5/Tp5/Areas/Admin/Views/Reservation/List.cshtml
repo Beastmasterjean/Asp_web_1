@@ -20,10 +20,10 @@
             <!-- Permet de gérer l'affichage du modèle à un seul endroit -->
             <th>@Html.DisplayNameFor(model => model.Reservations[0].date)</th>
             <th>@Html.DisplayNameFor(model => model.Reservations[0].nom)</th>
-            <th>@Html.DisplayNameFor(model => model.Reservations[0].courriel)</th>
+            <th class="d-none d-lg-block">@Html.DisplayNameFor(model => model.Reservations[0].courriel)</th>
             <th>@Html.DisplayNameFor(model => model.Reservations[0].nbPersonne)</th>
             <th>@Html.DisplayNameFor(model => model.Reservations[0].menuChoiceId)</th>
-            <th>Actions</th>
+            <th class="d-none d-md-block">Actions</th>
         </tr>
         @if (Model.Reservations.Length > 0)
         {
@@ -33,12 +33,12 @@
     <tr>
         <td>@Html.DisplayFor(model => reservation.date)</td>
         <td>@Html.DisplayFor(model => reservation.nom)</td>
-        <td>@Html.DisplayFor(model => reservation.courriel)</td>
+        <td class="d-none d-lg-block" >@Html.DisplayFor(model => reservation.courriel)</td>
         <td>@Html.DisplayFor(model => reservation.nbPersonne)</td>
         <td>@Html.DisplayFor(model => reservation.menuChoiceId)</td>
 
         <td>
-            <a asp-action="Delete" asp-route-id="@reservation.id">Supprimer</a>
+            <a asp-action="Delete" asp-route-id="@reservation.id" data-toggle="tooltip" title="Delete"><i class="far fa-trash-alt"></i></a>
         </td>
     </tr>
             }
